@@ -49,6 +49,12 @@ let operation = (evaluate)=>{
 // adding event listenrs to buttons
 numbers.forEach(number =>{
     number.addEventListener('click', (e)=>{
+        let firstChar = display.textContent.charAt(0);
+
+        if(firstChar === "T"){
+            display.textContent = e.target.textContent;
+            return;
+        }
         display.textContent += e.target.textContent;
     });
 });
@@ -57,9 +63,13 @@ operators.forEach(operator =>{
     operator.addEventListener('click', (e)=>{
         let lastIndex = display.textContent.length - 1;
         let lastChar = display.textContent.charAt(lastIndex)
-
-        if(lastChar === "+" || lastChar === "-" || lastChar === "*" || lastChar === "/" || lastChar === ""){
-            alert("cannot add operator, add number first");
+        let firstChar = display.textContent.charAt(0);
+        // if space or no space then need number
+        if(lastChar === " "|| lastChar === ""){
+            alert("cannot input operator, add number first");
+        }
+        else if(firstChar ==="T"){
+            display.textContent = " ";
         }
         else{
             display.textContent += " " + e.target.textContent + " ";
@@ -74,10 +84,14 @@ clear.addEventListener('click', ()=>{
 
 equal.addEventListener('click', (e)=>{
     let lastIndex = display.textContent.length - 1;
-    let lastChar = display.textContent.charAt(lastIndex)
+    let lastChar = display.textContent.charAt(lastIndex);
+    let firstChar = display.textContent.charAt(0);
 
-    if(lastChar === "+" || lastChar === "-" || lastChar === "*" || lastChar === "/" || lastChar === ""){
+    if(lastChar === " "|| lastChar === ""){
         alert("Cannot calculate operation.");
+    }
+    else if(firstChar == "T"){
+        return;
     }
     else{
         operation(display.textContent);
